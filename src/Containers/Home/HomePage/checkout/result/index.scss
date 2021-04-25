@@ -1,0 +1,82 @@
+.result__content {
+  width: 100%;
+  height: calc(100vh - 90px);
+  background-position: top;
+  background-size: cover;
+  padding-top: 60px;
+  .result__wapper {
+    position: relative;
+    min-width: 500px;
+    width: max-content;
+    max-width: 600px;
+    min-height: 300px;
+    border-radius: 8px;
+    // background: linear-gradient(to bottom, white, tranparent);
+    margin: 0 auto;
+    padding-top: 12px;
+    background-position: center;
+    opacity: 0.95;
+    .header__ticket {
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(22, 22, 22);
+      color: white;
+      text-transform: uppercase;
+      background-position: center;
+      .header__title {
+        display: flex;
+        align-items: center;
+        margin: 4px 0;
+        line-height: 1;
+        font-size: 18px;
+      }
+      .star__icon {
+        font-size: 12px;
+        margin: 0 10px;
+      }
+    }
+    .result__infor {
+      padding: 10px 15px;
+      p {
+        margin: 0;
+      }
+      .infor__text {
+        padding-left: 5px;
+      }
+      .infor__title {
+        font-weight: 500;
+        color: gray;
+      }
+      .tenPhim {
+        span {
+          color: #fff;
+          border-radius: 4px;
+          padding: 0 8px;
+          margin-right: 5px;
+          font-size: 18px;
+          min-width: 33px;
+          text-align: center;
+        }
+        .c13 {
+          background-color: #fb4226;
+        }
+        .p {
+          background-color: #00ac4d;
+        }
+      }
+    }
+    .sold__stamp {
+      height: 115px;
+      width: 200px;
+      transform: rotate(-25deg);
+      position: absolute;
+      top: 110px;
+      right: 180px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 1;
+    }
+  }
+}

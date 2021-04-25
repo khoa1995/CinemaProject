@@ -1,0 +1,3 @@
+export const CHECK_LOGIN_REQUEST = "fetch/CHECK_LOGIN_REQUEST";
+export const CHECK_LOGIN_SUCCESS = "fetch/CHECK_LOGIN_SUCCESS";
+export const CHECK_LOGIN_FAIL = "fetch/CHECK_LOGIN_FAIL";

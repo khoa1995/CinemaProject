@@ -1,0 +1,40 @@
+.header__content {
+  position: relative;
+  width: 100%;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0);
+}
+
+.header__change {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  -webkit-animation: stickyHeader 1s;
+          animation: stickyHeader 1s;
+}
+
+@-webkit-keyframes stickyHeader {
+  from {
+    top: -60px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes stickyHeader {
+  from {
+    top: -60px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+/*# sourceMappingURL=index.css.map */

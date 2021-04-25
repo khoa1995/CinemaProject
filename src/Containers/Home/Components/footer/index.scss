@@ -1,0 +1,85 @@
+footer {
+    background-color: #222;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #949494;
+    .row {
+        margin: 0;
+        .footer__content1 {
+            // padding: 0;
+            .col-sm-6 {
+                padding: 0;
+                .footer__cursor {
+                    font-size: 12px;
+                    line-height: 2.3;
+                    font-weight: 700;
+                    white-space: nowrap;
+                    color: #949494;
+                    transition: all 0.2s;
+                }
+                .footer__cursor:hover {
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+        .title__footer {
+            color: white;
+            font-size: 80%;
+        }
+        .footer__content2 {
+            .lineFooter {
+                padding: 0;
+                margin-bottom: 15px;
+                img {
+                    font-size: 14px;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                }
+                img:hover {
+                    opacity: 0.7;
+                    cursor: pointer;
+                }
+            }
+        }
+        .footer__content3 {
+            img {
+                margin: 5px 10px 0px 5px;
+            }
+            img:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .hrFooter {
+        border-top: 1px solid #4a4a4a;
+    }
+    .footer2 {
+        .zionLogo {
+            padding: 0;
+            img {
+                width: 80px;
+                height: auto;
+                border-radius: 8px;
+            }
+        }
+        .zionLogo2 {
+            padding: 0;
+            img {
+                width: 130px;
+                float: right;
+                border-radius: 8px;
+            }
+        }
+        .infoFooter {
+            // display: block;
+            line-height: 1.8;
+            color: #949494;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .infoFooter span:first-child {
+            color: #fff;
+        }
+    }
+}

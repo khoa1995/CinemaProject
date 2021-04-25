@@ -1,0 +1,82 @@
+.showing {
+    padding-top: 1rem;
+    height: 100%;
+    z-index: 9999999999999;
+
+    .showing__background {
+        color: white;
+        // z-index: 99999999;
+        .showing__content {
+            transition: all 0.2s;
+            padding-top: 20px;
+            margin-top: 10px;
+            // text-align: center;
+        }
+    }
+}
+.btnTitleMovie {
+    text-align: center;
+    // padding-top: 20px;
+    // padding-bottom: px;
+    // margin-top: 50px;
+    // margin-bottom: 50px;
+    .btnTitle {
+        text-align: center;
+        // line-height: 24px;
+        font-weight: 500;
+        font-size: 20px;
+        // height: 100%;
+        padding: 5px 10px;
+        align-items: center;
+        border: none;
+        background-color: transparent;
+        transition: all 0.2s;
+        color: white;
+    }
+    .btnActive {
+        color: red;
+        font-size: 24px;
+    }
+    .btnTitle:hover {
+        font-size: 24px;
+    }
+    .btnTitle:active,
+    .btnTitle:focus {
+        border: none;
+        outline: none;
+        color: red;
+        font-size: 24px;
+        cursor: default;
+    }
+}
+.cssAnimation__content {
+    display: block;
+}
+.showing_css-enter {
+    animation: fadein 0.3s;
+    -webkit-animation: fadein 0.3s;
+    -moz-animation: fadein 0.3s;
+    -ms-animation: fadein 0.3s;
+    -o-animation: fadein 0.3s;
+    opacity: 1;
+}
+
+.showing_css-enter.showing_css-enter-active {
+    opacity: 1;
+}
+
+.showing_css-leave {
+    opacity: 0;
+}
+
+.showing_css-leave.showing_css-leave-active {
+    opacity: 0;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

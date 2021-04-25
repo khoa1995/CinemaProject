@@ -1,0 +1,198 @@
+.user__container {
+  position: relative;
+  margin-top: 70px;
+  height: calc(100vh - 70px);
+  width: 100%;
+
+  .background__filter {
+    position: fixed;
+
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #10273091, #00000061 100%);
+  }
+  .user__background {
+    position: fixed;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    background-position: bottom;
+    background-size: cover;
+  }
+
+  .cssAnimation__content {
+    display: block;
+
+    span {
+      // display: grid;
+      // width: 100%;
+      // align-items: center;
+      // padding: 0 150px;
+      .item {
+        // width: 100% !important;
+        // grid-column-start: 1;
+        // grid-column-end: 2;
+        // grid-row-start: 1;
+        // grid-row-end: 2;
+        // width: calc(100% - 300px);
+        .user__content,
+        .ticket__content {
+          position: relative;
+          border-radius: 4px;
+          z-index: 1;
+          min-width: 60%;
+          max-width: 70%;
+          width: fit-content;
+          margin: 0 auto;
+          min-height: 300px;
+          padding: 15px 0;
+          background: #0a2029f7;
+          color: white;
+
+          .sideBar {
+            margin-top: 15px;
+            nav {
+              ul {
+                list-style-type: none;
+                padding: 0;
+                .li-item {
+                  color: rgb(134, 134, 134);
+                  cursor: pointer;
+                  padding: 5px 10px;
+                  &:hover {
+                    color: white;
+                  }
+                }
+              }
+            }
+          }
+
+          .user__infor {
+            margin-top: 15px;
+            padding-left: 30px;
+            .title,
+            .infor {
+              width: 50%;
+            }
+
+            .accComponent-enter {
+              // opacity: 0.01;
+              // transform: translateY(800px);
+              opacity: 0;
+              z-index: 1;
+              transition: all 0.5s ease-in;
+            }
+
+            .accComponent-enter.accComponent-enter-active {
+              opacity: 1;
+              // transform: translateY(0px);
+              z-index: 2;
+              transition: all 0.5s ease-in;
+              // transform: 500ms;
+            }
+
+            .accComponent-leave {
+              opacity: 1;
+              z-index: 2;
+              height: 0;
+            }
+
+            .accComponent-leave.accComponent-leave-active {
+              opacity: 0;
+              z-index: 1;
+              height: 0;
+            }
+          }
+        }
+        .ticket__content {
+          .movieName {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+          .moreInfor {
+            max-height: 0;
+            // visibility: hidden;
+            // transition: 0.35s;
+            overflow: hidden;
+            transition: all 0.35s ease-in-out;
+          }
+          .moreInfor.active {
+            max-height: 200px;
+            // visibility: visible;
+            // overflow: visible;
+            // transition: 0.35s;
+          }
+          .btn__comeback {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 24px;
+            line-height: 50px;
+            color: white;
+            border: none;
+            outline: none;
+            .MuiButton-label,
+            .MuiTouchRipple-root {
+              display: inline-block;
+              padding: 0;
+            }
+          }
+        }
+      }
+      .item-enter {
+        transform: scale(0.01);
+        opacity: 1;
+        transition: all 0.5s ease-in;
+      }
+
+      .item-enter.item-enter-active {
+        opacity: 1;
+        transform: scale(1);
+        transition: all 0.5s ease-in;
+      }
+
+      .item-leave {
+        opacity: 0;
+        // height: 0;
+        transform: scale(1);
+      }
+
+      .item-leave.item-leave-active {
+        opacity: 0;
+        transform: scale(0.01);
+        // height: 0;
+      }
+    }
+  }
+
+  .header {
+    padding: 90px 0 30px 0;
+    .nav {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .li-item {
+        margin: 0 20px;
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        color: black;
+        transition: all 0.2s;
+        &:hover {
+          //   color: #ff002f;
+          font-size: 24px;
+          // transition: all 0.35;
+        }
+      }
+      .li-item.selected {
+        color: #ff002f;
+        font-size: 24px;
+      }
+    }
+  }
+}

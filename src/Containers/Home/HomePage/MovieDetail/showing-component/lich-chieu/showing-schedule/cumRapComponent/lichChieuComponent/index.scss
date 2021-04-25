@@ -1,0 +1,28 @@
+.btn__datVe {
+    outline: none !important;
+    background-color: rgba(216, 216, 216, 0.568) !important;
+    margin-right: 15px !important;
+    margin-bottom: 10px !important;
+    transition: all 0.2s !important;
+    &:hover {
+        .timeStart {
+            color: #fb4226;
+        }
+    }
+    .timeStart {
+        font-size: 18px;
+        font-weight: 500;
+        color: #108f3e;
+        letter-spacing: -0.16px;
+    }
+    .timeDisabled {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: -0.16px;
+    }
+    small {
+        font-size: 14px;
+        font-weight: 400;
+        color: #9b9b9b;
+    }
+}

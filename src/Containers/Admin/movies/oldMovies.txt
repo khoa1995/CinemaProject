@@ -1,0 +1,508 @@
+import { getMovies } from "Containers/Home/HomePage/movieList/modules/action";
+import React, { useEffect, useState } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory, {
+  PaginationProvider,
+  PaginationListStandalone,
+  PaginationTotalStandalone,
+  SizePerPageDropdownStandalone,
+} from "react-bootstrap-table2-paginator";
+import { useDispatch, useSelector } from "react-redux";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import {
+  actPostNewMovie,
+  actDeleteMovie,
+  actUpdateMovie,
+  actGetMovieWithPagination,
+} from "./modules/actions";
+import Axios from "axios";
+
+function MovieManagement(props) {
+  const dispatch = useDispatch();
+  const movieList = useSelector((state) => state.moviesReducer.movieList);
+
+  // "currentPage","count","totalPages","totalCount","items" []
+  const responseData = useSelector(
+    (state) => state.movieListWithPaginationReducer.movieList
+  );
+  const loading = useSelector(
+    (state) => state.movieListWithPaginationReducer.loading
+  );
+
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [sizePerPage, setSizePerPage] = useState(10);
+
+  const [updatingMovie, setUpdatingMovie] = useState(false);
+  const [movie, setMovie] = useState({
+    maPhim: 0,
+    tenPhim: "",
+    biDanh: "",
+    trailer: "",
+    hinhAnh: "",
+    moTa: "",
+    maNhom: "GP01",
+    ngayKhoiChieu: "",
+    danhGia: 0,
+  });
+
+  useEffect(() => {
+    // dispatch(getMovies());
+    dispatch(actGetMovieWithPagination(page));
+    console.log("useEffect - component did mounth");
+  }, []);
+
+  // pagination setting
+  const customTotal = () => (
+    <span className="react-bootstrap-table-pagination-total">
+      Showing {responseData.currentPage} of {responseData.totalPages} Results
+    </span>
+  );
+  let options = {
+    paginationSize: 5,
+    pageStartIndex: 1,
+    // page: responseData.currentPage,
+    // sizePerPage: page.count,
+    onPageChange: onPageChange,
+
+    dataSize: responseData.totalCount ? responseData.totalCount : 0,
+    // paginationSize: responseData.totalPages,
+    // alwaysShowAllBtns: true, // Always show next and previous button
+    // withFirstAndLast: false, // Hide the going to First and Last page button
+    // hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    // firstPageText: "First",
+    // prePageText: "Back",
+    // nextPageText: "Next",
+    // lastPageText: "Last",
+    nextPageTitle: "First page",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Next page",
+    lastPageTitle: "Last page",
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [
+      {
+        text: "5",
+        value: 5,
+      },
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "15",
+        value: 15,
+      },
+      {
+        text: "25",
+        value: 25,
+      },
+    ], // A numeric array is also available. the purpose of above example is custom the text
+  };
+
+  function onPageChange(pageChange) {
+    console.log(pageChange);
+    setPage(pageChange);
+    dispatch(actGetMovieWithPagination(pageChange));
+  }
+
+  function handleUpdate(e) {
+    e.preventDefault();
+
+    console.log("Handle Updating!", movie);
+    dispatch(actUpdateMovie(movie));
+  }
+  function updateMovie(movie) {
+    setUpdatingMovie(true);
+    // setMovie({
+    //   maPhim: movie.maPhim,
+    //   tenPhim: movie.tenPhim,
+    //   biDanh: movie.biDanh,
+    //   trailer: movie.trailer,
+    //   hinhAnh: "movie.hinhAnh.jpg",
+    //   moTa: movie.moTa,
+    //   maNhom: "GP01",
+    //   ngayKhoiChieu: movie.ngayKhoiChieu,
+    //   danhGia: movie.danhGia,
+    // });
+
+    document.getElementById("tenPhim").value = movie.tenPhim;
+    document.getElementById("biDanh").value = movie.biDanh;
+    document.getElementById("trailer").value = movie.trailer;
+    document.getElementById("hinhAnh").value = "";
+    document.getElementById("moTa").value = movie.moTa;
+    document.getElementById("ngayKhoiChieu").value = movie.ngayKhoiChieu;
+    document.getElementById("danhGia").value = movie.danhGia;
+  }
+  function deleteMovie(maPhim) {
+    dispatch(actDeleteMovie(maPhim));
+  }
+  function handleOnChange(e) {
+    let { name, value } = e.target;
+    setMovie({
+      ...movie,
+      [name]: value,
+      hinhAnh: e.target.files,
+    });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(movie.hinhAnh[0]);
+    const movieDispatch = { ...movie, hinhAnh: movie.hinhAnh[0].name };
+    dispatch(actPostNewMovie(movieDispatch));
+    setTimeout(() => {
+      var frm = new FormData();
+      frm.append("hinhAnh", movie.hinhAnh[0], movie.hinhAnh[0].name);
+      frm.append("tenPhim", movie.tenPhim);
+      frm.append("maNhom", "GP01");
+      Axios({
+        url:
+          "https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/UploadHinhAnhPhim",
+        method: "POST",
+        data: frm,
+        onUploadProgress: (ProgressEvent) => {
+          console.log(
+            "Upload Progress: " +
+              Math.round(ProgressEvent.loaded / ProgressEvent.total) * 100 +
+              "%"
+          );
+        },
+      })
+        .then((res) => {
+          console.log("Upload SUCCESS!!!", res);
+        })
+        .catch((err) => {
+          // dispatch(actPostNewMovieFail(err.message));
+          console.log(err);
+        });
+    }, 1000);
+  }
+  const { SearchBar } = Search;
+  const columns = [
+    {
+      dataField: "maPhim",
+      text: "Movie ID",
+    },
+    {
+      dataField: "tenPhim",
+      text: "Movie Name",
+    },
+    {
+      dataField: "danhGia",
+      text: "Rate",
+    },
+    {
+      dataField: "ngayKhoiChieu",
+      text: "Release date",
+    },
+    {
+      dataField: "link",
+      text: "ACTION",
+      formatter: (rowContent, row) => {
+        return (
+          <>
+            <button
+              className="btn btn-success btn-sm mr-2"
+              data-toggle="modal"
+              data-target="#movieModal"
+              onClick={() => {
+                updateMovie(row);
+              }}
+            >
+              Sửa
+            </button>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={() => {
+                deleteMovie(row.maPhim);
+              }}
+            >
+              Xoá
+            </button>
+          </>
+        );
+      },
+    },
+  ];
+
+  // <ToolkitProvider
+  //   keyField="maPhim"
+  //   data={responseData.items ? responseData.items : []}
+  //   columns={columns}
+  //   // search
+  // >
+  //   {(props) => (
+  //     <div>
+  //       <div className="d-flex justify-content-between align-items-center">
+  //         {/* <SearchBar {...props.searchProps} /> */}
+  //         <button
+  //           type="button"
+  //           className="btn btn-success mr-2"
+  //           data-toggle="modal"
+  //           data-target="#movieModal"
+  //           onClick={() => {
+  //             setUpdatingMovie(false);
+  //             document.getElementById("tenPhim").value = "";
+  //             document.getElementById("biDanh").value = "";
+  //             document.getElementById("trailer").value = "";
+  //             document.getElementById("hinhAnh").value = "";
+  //             document.getElementById("moTa").value = "";
+  //             document.getElementById("ngayKhoiChieu").value = "";
+  //             document.getElementById("danhGia").value = "";
+  //           }}
+  //         >
+  //           Thêm Phim Mới
+  //         </button>
+  //       </div>
+  //       <BootstrapTable
+  //         pagination={paginationFactory(options)}
+  //         hover
+  //         {...props.baseProps}
+  //       />
+  //     </div>
+  //   )}
+  // </ToolkitProvider>;
+
+  const handleTableChange = (type, { page, sizePerPage }) => {
+    const currentIndex = (page - 1) * sizePerPage;
+    setTimeout(() => {
+      setPage(page);
+      setData(responseData.items);
+      setSizePerPage(sizePerPage);
+    }, 40);
+  };
+
+  const RemotePagination = ({
+    data,
+    page,
+    sizePerPage,
+    onTableChange,
+    totalSize,
+    onPageChange,
+  }) => (
+    <div>
+      <PaginationProvider
+        pagination={paginationFactory({
+          custom: true,
+          page,
+          sizePerPage,
+          totalSize,
+          onPageChange,
+        })}
+      >
+        {({ paginationProps, paginationTableProps }) => (
+          <div>
+            <div>
+              <p>Current Page: {paginationProps.page}</p>
+              <p>Current SizePerPage: {paginationProps.sizePerPage}</p>
+            </div>
+            <div>
+              <PaginationListStandalone {...paginationProps} />
+            </div>
+            <BootstrapTable
+              remote
+              keyField="maPhim"
+              data={data}
+              columns={columns}
+              onTableChange={onTableChange}
+              onPageChange={onPageChange}
+              {...paginationTableProps}
+            />
+          </div>
+        )}
+      </PaginationProvider>
+    </div>
+  );
+
+  if (loading) {
+    return <p>Loading....</p>;
+  }
+  if (!responseData.items) {
+    return <p>Loading....</p>;
+  }
+  return (
+    <>
+      <h1 className="text-center">Movie Management</h1>
+      {/* <BootstrapTable
+        keyField="maPhim"
+        data={movieList}
+        columns={columns}
+        pagination={paginationFactory(options)}
+      />  */}
+      <RemotePagination
+        data={data}
+        page={page}
+        sizePerPage={sizePerPage}
+        totalSize={responseData.totalCount}
+        onTableChange={handleTableChange}
+      />
+      {/* MODAL */}
+      <div
+        className="modal fade"
+        id="movieModal"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                {updatingMovie ? "Cập nhật phim" : "Thêm Phim Mới"}
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form
+                className="form"
+                onSubmit={updatingMovie ? handleUpdate : handleSubmit}
+              >
+                <div className="form-group row">
+                  <label
+                    htmlFor="tenPhim"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Tên Phim:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="tenPhim"
+                      name="tenPhim"
+                      onChange={handleOnChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="biDanh"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Bí Danh:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="biDanh"
+                      name="biDanh"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="trailer"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Trailer:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="trailer"
+                      name="trailer"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="moTa"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Mô Tả:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="moTa"
+                      name="moTa"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="ngayKhoiChieu"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Ngày Khởi Chiếu:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="ngayKhoiChieu"
+                      name="ngayKhoiChieu"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="danhGia"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Đánh Giá:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="danhGia"
+                      placeholder="0->10"
+                      name="danhGia"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <label
+                    htmlFor="hinhAnh"
+                    className="col-sm-4 col-form-label text-right"
+                  >
+                    Hình Ảnh:
+                  </label>
+                  <div className="col-sm-8">
+                    <input
+                      type="file"
+                      className="form-control-file"
+                      id="hinhAnh"
+                      name="hinhAnh"
+                      onChange={handleOnChange}
+                    />
+                  </div>
+                </div>
+                <hr />
+                <div className="form-group row">
+                  <div className="col-sm-8">
+                    <button type="submit" className="btn btn-success">
+                      {updatingMovie ? "Cập nhật" : "Thêm Mới"}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default MovieManagement;

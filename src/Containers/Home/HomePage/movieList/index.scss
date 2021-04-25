@@ -1,0 +1,31 @@
+.movieList__main {
+  .example1 {
+    .slick-prev:before,
+    .slick-next::before {
+      content: "";
+    }
+    .slick-prev,
+    .slick-next {
+      // color: black !important;
+      // background-color: transparent;
+      width: 50px;
+      height: 50px;
+      // outline: none;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      color: violet;
+    }
+    .slick-next {
+      background-image: url(../../../../assets/img/next-session.png);
+      right: -80px;
+    }
+    .slick-prev {
+      background-image: url(../../../../assets/img/back-session.png);
+      left: -80px;
+      // background-image: url(../../../../assets/img/next-session.png);
+    }
+  }
+  padding-left: 110px;
+  padding-right: 110px;
+}

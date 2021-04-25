@@ -1,0 +1,59 @@
+.movie__item {
+  .movie__infor {
+    margin-bottom: 10px;
+    cursor: pointer;
+    .image__movie {
+      margin-right: 15px;
+      height: 80px;
+      width: 55px;
+    }
+  }
+  padding-top: 20px;
+  border-bottom: 1px solid #ebebec;
+}
+
+.information {
+  span {
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 5px;
+    margin-right: 5px;
+    font-size: 13px;
+    min-width: 33px;
+    text-align: center;
+  }
+  .c13 {
+    background-color: #fb4226;
+  }
+  .p {
+    background-color: #00ac4d;
+  }
+}
+
+.showOrHideDiv {
+  overflow: hidden;
+  transition: max-height 0.3s linear;
+  .listSuatChieuPhim {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+    .btn__datVe {
+      outline: none;
+      background-color: rgba(216, 216, 216, 0.568);
+      margin: 0 !important;
+      font-size: 18px;
+      color: green;
+      small {
+        font-size: 14px;
+        color: gray;
+      }
+      &:hover {
+        small {
+          color: gray;
+        }
+        color: #fb4226;
+      }
+    }
+  }
+}

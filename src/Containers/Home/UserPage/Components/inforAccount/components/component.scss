@@ -1,0 +1,58 @@
+.changePassword__content {
+  .form__row {
+    height: 50px;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .btn__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btnCapNhat {
+      width: 40%;
+      color: white;
+      outline: none;
+    }
+  }
+}
+
+.updateInfor__content {
+  .form__row {
+    height: 50px;
+    justify-content: space-between;
+    align-items: end;
+  }
+  .btn__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btnCapNhat {
+      width: 40%;
+      color: white;
+      outline: none;
+    }
+  }
+
+  .infor__item {
+    display: flex;
+    align-items: center;
+    .title {
+      height: 27px;
+      line-height: 27px;
+    }
+  }
+  .updateInfor__input {
+    background: inherit;
+    border: none;
+    outline: none;
+    color: white;
+    color: rgb(190, 190, 190);
+    border-bottom: 1px solid rgba(114, 114, 114, 0.822);
+    transition: all 0.3s;
+    &:focus,
+    &:hover {
+      color: white;
+      border-bottom: 1px solid white;
+    }
+  }
+}

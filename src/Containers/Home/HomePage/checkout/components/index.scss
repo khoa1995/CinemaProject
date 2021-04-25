@@ -1,0 +1,58 @@
+.btn__home {
+  transition: all 0.3s;
+  &:hover {
+    color: #f79400;
+  }
+}
+
+#user__content {
+  .signin {
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-decoration: none;
+    color: #9b9b9b;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 14px;
+    margin-right: 30px;
+    cursor: pointer;
+    .moveVeDaDatLink {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    transform: translateY(75%);
+    background-color: #d9d8d8;
+    width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: black;
+    z-index: 1;
+    padding: 0;
+    .li__item {
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(114, 113, 113);
+      }
+    }
+  }
+  .logged:hover .dropdown-content {
+    display: block;
+  }
+  .signin:hover {
+    color: #9b9b9b;
+    text-decoration: none;
+  }
+  .signin i {
+    font-size: 30px;
+    margin-right: 10px;
+  }
+}

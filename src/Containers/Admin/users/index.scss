@@ -1,0 +1,20 @@
+.MuiPagination-root {
+  display: flex;
+  justify-content: center;
+  .MuiPagination-ul {
+    width: fit-content;
+    .MuiButtonBase-root {
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+#userAdmin__content {
+  .MuiPaginationItem-page.Mui-selected {
+    background-color: rgba(0, 0, 0, 0.38) !important;
+  }
+  .MuiPaginationItem-page:hover {
+    background-color: rgba(0, 0, 0, 0.14);
+  }
+}
